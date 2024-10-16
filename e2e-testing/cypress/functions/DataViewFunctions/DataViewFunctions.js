@@ -25,6 +25,27 @@ class DataViewFunctions {
       .children(DataViewLocators.postItem)
       .contains('Automated Title Response');
   }
+
+  verify_bulk_actions_delete_posts() {
+    this.click_data_view_btn();
+    cy.wait(1000);
+    //check delete post in the page with bulk actions
+    cy.get('button:contains("Bulk Actions")').click();
+    cy.get(DataViewLocators.postPreview)
+      .children(DataViewLocators.postItem)
+      .contains('Automated Title Response')
+      .find('.mat-checkbox-input')
+      .click();
+    cy.get('button:contains("Delete")').click({ force: true });
+    cy.get('#confirm-modal').click();
+    cy.get(DataViewLocators.confirmDeleteBtn).click();
+    cy.get(DataViewLocators.successBtn).click();
+    //verify post deleted
+    cy.get(DataViewLocators.postPreview)
+      .children(DataViewLocators.postItem)
+      .contains('Automated Title Response')
+      .should('not.exist');
+  }
 }
 
 export default DataViewFunctions;

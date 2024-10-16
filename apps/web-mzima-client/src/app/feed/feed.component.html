@@ -152,6 +152,7 @@
           *ngIf="user?.allowed_privileges?.includes('update')"
           (buttonClick)="toggleBulkOptions(!isBulkOptionsVisible)"
           [disabled]="isLoading || !posts.length"
+          [attr.data-qa]="'bulk-actions'"
         >
           {{ 'post.modify.bulk_actions' | translate }}
         </mzima-client-button>
